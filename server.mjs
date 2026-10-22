@@ -1,4 +1,6 @@
 import { createServer } from 'node:http';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const port = Number(process.env.PORT || 8787);
 const host = process.env.HOST || '127.0.0.1';
@@ -61,6 +63,6 @@ export function createPresenceServer({ now = Date.now, ttlMs = 90_000 } = {}) {
   });
 }
 
-if (process.argv[1] && import.meta.url === new URL(`file:///${process.argv[1].replaceAll('\\', '/')}`).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   createPresenceServer().listen(port, host, () => console.log(`KLYX presence listening on ${host}:${port}`));
 }
