@@ -2,12 +2,13 @@
 
 This small HTTP service tracks active client XUIDs for 90 seconds. A client
 heartbeats every 30 seconds and checks only the XUIDs in its current player
-list. Deploy it behind HTTPS, then put the public base URL in the client's
+list. The current Combined build uses the live HTTPS service at
+`https://klyx-client-presence.onrender.com`. A custom URL can be set in
 `%LOCALAPPDATA%\VincentCombined\AuroraESP.ini` as:
 
 ```ini
 [Presence]
-Url=https://your-host.example
+Url=https://klyx-client-presence.onrender.com
 ```
 
 Restart Minecraft and inject the new Combined DLL after changing the URL.
@@ -24,9 +25,9 @@ cosmetic and a modified client can claim another XUID.
 
 ## Deploy on Render
 
-Publish this `Presence` folder as the root of a GitHub, GitLab, or Bitbucket
-repository. Connect that repository to a new Render Blueprint. The included
-`render.yaml` creates one free Docker web service and checks `/healthz`.
-After it becomes live, set `Presence.Url` in the client INI to the service's
-HTTPS `onrender.com` URL, without a trailing slash. A free service may sleep
-when idle, so the first heartbeat after an idle period can be delayed.
+This repository is deployed as a single Free Docker web service in Singapore,
+linked to the `main` branch. The included `render.yaml` describes equivalent
+settings for a new workspace. The existing service was created directly, so
+applying the Blueprint in its workspace would create a second service.
+A Free service may sleep when idle, so the first heartbeat after an idle period
+can be delayed.
