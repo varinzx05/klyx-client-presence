@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: klyx-client-presence
+    runtime: docker
+    plan: free
+    healthCheckPath: /healthz
+    numInstances: 1
